@@ -1,0 +1,30 @@
+ion-tab-bar {
+  /* Fondo Superficie Blanco Lila[cite: 7, 17, 22] */
+  --background: #F8F4FC; 
+  /* Inactivas: icono y texto en Gris Suave[cite: 8, 18, 22] */
+  --color: #66757D; 
+  /* Activa: icono y texto en Gris Azulado[cite: 8, 18, 22] */
+  --color-selected: #36454F; 
+  
+  border-top: 1px solid #D5D0C9; /* Línea separadora suave opcional */
+}
+
+ion-tab-button {
+  /* En Ionic modo Material, el indicador (la píldora detrás del icono activo) 
+     toma el color primario o secundario por defecto. 
+     La guía exige una píldora indicadora en Verde Salvia (#90C9B2)[cite: 18] */
+  --ripple-color: #90C9B2; 
+  --indicator-color: #90C9B2;
+
+  ion-label {
+    /* Familia tipográfica funcional y etiqueta siempre visible de 12 px[cite: 10, 18] */
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; /* Peso Medium 500[cite: 11] */
+    font-size: 12px; /* Tamaño mínimo absoluto para navegación[cite: 11] */
+  }
+
+  ion-icon {
+    /* Tamaño de iconos en barras[cite: 12] */
+    font-size: 24px;
+  }
+}
