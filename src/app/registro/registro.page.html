@@ -1,13 +1,80 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>registro</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="registro-content">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">registro</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="registro-container">
+
+    <!-- Flecha para regresar -->
+    <div class="back-container">
+      <ion-button
+        fill="clear"
+        class="back-button"
+        aria-label="Regresar">
+
+        <ion-icon
+          slot="icon-only"
+          name="arrow-back-outline">
+        </ion-icon>
+
+      </ion-button>
+    </div>
+
+
+    <!-- Título -->
+    <div class="encabezado">
+      <h1>CREA TU CUENTA</h1>
+      <p>Tu información siempre en resguardo</p>
+    </div>
+
+
+    <!-- Formulario -->
+    <div class="formulario">
+
+      <!-- Nombre -->
+      <ion-input
+        fill="outline"
+        label="Nombre"
+        labelPlacement="floating"
+        type="text">
+      </ion-input>
+
+
+      <!-- Contraseña -->
+      <ion-input
+        fill="outline"
+        label="Contraseña"
+        labelPlacement="floating"
+        type="password">
+
+        <ion-input-password-toggle
+          slot="end">
+        </ion-input-password-toggle>
+
+      </ion-input>
+
+    </div>
+
+
+    <!-- Imagen de perfil -->
+    <div class="perfil-selector">
+
+      <div class="avatar-container">
+        <ion-icon
+          name="person-outline"
+          class="perfil-icon">
+        </ion-icon>
+      </div>
+
+      <span>IMAGEN DE PERFIL</span>
+
+    </div>
+
+
+    <!-- Botón guardar -->
+    <ion-button
+      expand="block"
+      class="guardar">
+      Guardar
+    </ion-button>
+
+  </div>
+
 </ion-content>
