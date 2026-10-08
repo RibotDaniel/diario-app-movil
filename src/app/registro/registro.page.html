@@ -7,7 +7,7 @@
       <ion-button
         fill="clear"
         class="back-button"
-        aria-label="Regresar">
+        routerLink="/login">
 
         <ion-icon
           slot="icon-only"
@@ -32,6 +32,13 @@
         label="Nombre"
         labelPlacement="floating"
         type="text">
+      </ion-input>
+
+      <ion-input
+        fill="outline"
+        label="correo"
+        labelPlacement="floating"
+        type="email">
       </ion-input>
 
       <!-- Contraseña -->
@@ -70,6 +77,10 @@
       routerLink="/tabs/inicio">
       Guardar
     </ion-button>
+    <div class="login-link">
+      <span>¿ya tienes cuenta?</span>
+      <a routerLink="/login">inicia sesion</a>
+    </div>
 
   </div>
 
