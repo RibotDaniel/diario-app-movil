@@ -1,0 +1,90 @@
+/* Contenedor principal alineado al centro verticalmente */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 16px;
+  gap: 40px;
+}
+
+/* Títulos y textos */
+.header-section {
+  text-align: center;
+  
+  .title {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #36454F; /* Gris Azulado */
+    margin-bottom: 8px;
+  }
+  
+  .subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #66757D; /* Gris Suave */
+    margin: 0;
+  }
+}
+
+/* Campos de texto */
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  ion-input {
+    --background: #F8F4FC; /* Blanco Lila */
+    --border-color: #C9C2B8;
+    --border-radius: 12px;
+    --color: #36454F;
+    --placeholder-color: #66757D;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    min-height: 56px;
+  }
+}
+
+/* Botones principales y secundarios */
+.actions-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .btn-primary {
+    --background: #90C9B2; /* Verde Salvia */
+    --color: #36454F; /* Texto oscuro sobre verde para accesibilidad */
+    --border-radius: 16px;
+    margin: 0;
+    min-height: 52px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: none; /* Evita que el texto se ponga en mayúsculas */
+  }
+
+  .btn-fingerprint {
+    --color: #36454F;
+    margin: 0;
+    min-height: 52px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: none;
+  }
+}
+
+/* Enlace inferior */
+.footer-section {
+  text-align: center;
+  margin-top: 10px;
+  
+  .btn-link {
+    --color: #8C6D55; /* Arena Oscura */
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: none;
+  }
+}
