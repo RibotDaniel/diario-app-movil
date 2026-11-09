@@ -11,15 +11,30 @@ const routes: Routes = [
       {
         // Esta es la pestaña de Inicio que ya tienes creada
         path: 'inicio',
-        loadChildren: () => import('../inicio/inicio.module').then(m => m.InicioPageModule)
+        loadChildren: () =>
+          import('../inicio/inicio.module')
+            .then(m => m.InicioPageModule)
       },
+
+      // Página de Configuración
+      {
+        path: 'configuracion',
+        loadChildren: () =>
+          import('../configuracion/configuracion.module')
+            .then(m => m.ConfiguracionPageModule)
+      },
+
       // NOTA: Cuando crees las otras páginas, las agregas aquí abajo:
       // {
       //   path: 'calendario',
-      //   loadChildren: () => import('../calendario/calendario.module').then(m => m.CalendarioPageModule)
+      //   loadChildren: () =>
+      //     import('../calendario/calendario.module')
+      //       .then(m => m.CalendarioPageModule)
       // },
+
       {
-        // Por defecto, cuando entres a los tabs, te mandará a la pestaña inicio
+        // Por defecto, cuando entres a los tabs,
+        // te mandará a la pestaña inicio
         path: '',
         redirectTo: 'inicio',
         pathMatch: 'full'
