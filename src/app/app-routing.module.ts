@@ -9,24 +9,34 @@ const routes: Routes = [
   },
   {
     path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () =>
+      import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: 'registro',
-    loadChildren: () => import('./registro/registro.module').then(m => m.RegistroPageModule)
+    loadChildren: () =>
+      import('./registro/registro.module').then(m => m.RegistroPageModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+    loadChildren: () =>
+      import('./login/login.module')
+        .then(m => m.LoginPageModule)
   },
-
-
+  {
+    path: 'configuracion',
+    loadChildren: () =>
+      import('./configuracion/configuracion.module')
+        .then(m => m.ConfiguracionPageModule)
+  }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: PreloadAllModules
+    })
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

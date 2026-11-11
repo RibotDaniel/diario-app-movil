@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -6,11 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inicio.page.scss'],
   standalone: false,
 })
-export class InicioPage implements OnInit {
+export class InicioPage {
 
-  constructor() { }
+  private router = inject(Router);
 
-  ngOnInit() {
+  // Abrir configuración desde el botón de Inicio
+  abrirConfiguracion(): void {
+    this.router.navigate(['/tabs/configuracion']);
   }
 
 }
