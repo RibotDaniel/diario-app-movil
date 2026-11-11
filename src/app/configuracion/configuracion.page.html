@@ -1,11 +1,17 @@
+
 <ion-header>
   <ion-toolbar>
+
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/inicio"></ion-back-button>
+      <ion-back-button
+        defaultHref="/tabs/inicio">
+      </ion-back-button>
     </ion-buttons>
+
     <ion-title class="ion-text-center">
       Configuración
     </ion-title>
+
   </ion-toolbar>
 </ion-header>
 
@@ -16,14 +22,15 @@
     <!-- Información del usuario -->
     <ion-row class="ion-justify-content-center ion-margin-top">
       <ion-col size="12" class="ion-text-center">
+
         <ion-icon
           name="person-circle-outline"
-          size="large">
+          style="font-size: 85px; color: #80b8b4;">
         </ion-icon>
 
-        <ion-text>
-          <h2>Usuario</h2>
-        </ion-text>
+        <h2>{{ nombre || 'Usuario' }}</h2>
+        <p>{{ correo }}</p>
+
       </ion-col>
     </ion-row>
 
@@ -33,28 +40,54 @@
 
         <ion-list lines="none">
 
-          <ion-item button detail="true">
+          <ion-item
+            button
+            detail="true"
+            (click)="editarPerfil()">
+
             <ion-icon
               name="person-outline"
               slot="start">
             </ion-icon>
+
             <ion-label>Editar el perfil</ion-label>
+
+          </ion-item>
+
+          <ion-item
+            button
+            detail="true"
+            (click)="cambiarContrasena()">
+
+            <ion-icon
+              name="lock-closed-outline"
+              slot="start">
+            </ion-icon>
+
+            <ion-label>Cambiar contraseña</ion-label>
+
           </ion-item>
 
           <ion-item button detail="true">
+
             <ion-icon
               name="shield-checkmark-outline"
               slot="start">
             </ion-icon>
+
             <ion-label>Aviso de privacidad</ion-label>
+
           </ion-item>
 
           <ion-item button detail="true">
+
             <ion-icon
               name="document-text-outline"
               slot="start">
             </ion-icon>
+
             <ion-label>Condiciones y Políticas</ion-label>
+
           </ion-item>
 
         </ion-list>
@@ -69,7 +102,8 @@
         <ion-button
           expand="block"
           fill="clear"
-          color="medium">
+          color="medium"
+          (click)="cerrarSesion()">
 
           <ion-icon
             name="log-out-outline"
