@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Mi Esencia</string>
+    <string name="title_activity_main">Mi Esencia</string>
+    <string name="package_name">com.miesencia.app</string>
+    <string name="custom_url_scheme">com.miesencia.app</string>
+</resources>

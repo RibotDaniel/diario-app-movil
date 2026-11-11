@@ -18,6 +18,13 @@ const routes: Routes = [
       //   path: 'calendario',
       //   loadChildren: () => import('../calendario/calendario.module').then(m => m.CalendarioPageModule)
       // },
+
+      //nueva page de grabar
+      {
+        path: 'grabar',
+        loadChildren: () => import('../grabar/grabar.module').then(m => m.GrabarPageModule)
+      },
+
       {
         // Por defecto, cuando entres a los tabs, te mandará a la pestaña inicio
         path: '',
@@ -32,4 +39,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

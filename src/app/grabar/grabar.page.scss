@@ -1,0 +1,116 @@
+ion-content {
+  --background: #F5EBE0;
+}
+
+ion-header {
+  background: #F5EBE0;
+}
+
+.main-container {
+  padding: 0 16px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.transparent-toolbar {
+  --background: transparent;
+
+  ion-icon {
+    color: #36454F;
+    font-size: 24px;
+  }
+}
+
+.title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #36454F;
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+/* Micrófono */
+.mic-col {
+  display: flex;
+  justify-content: center;
+}
+
+.mic-btn {
+  width: 120px;
+  height: 120px;
+
+  ion-icon {
+    font-size: 48px;
+  }
+
+  &.pulso {
+    animation: pulso 1.4s ease-in-out infinite;
+  }
+}
+
+@keyframes pulso {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mic-btn.pulso { animation: none; }
+}
+
+/* Cronómetro */
+.timer {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  color: #36454F;
+  margin: 0;
+}
+
+/* Ondas */
+.wave {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+
+  .bar {
+    width: 4px;
+    min-height: 4px;
+    border-radius: 2px;
+    background: #36454F;
+    transition: height 0.08s linear;
+  }
+}
+
+/* Controles */
+.control-btn {
+  --border-radius: 50%;
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 56px;
+  height: 56px;
+
+  ion-icon {
+    font-size: 28px;
+  }
+}
+
+/* Transcripción */
+ion-card.transcription-card {
+  --background: #F8F4FC;
+  border-radius: 20px;
+  margin: 0;
+
+  ion-textarea {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #36454F;
+    --placeholder-color: #66757D;
+    --placeholder-opacity: 1;
+    min-height: 96px;
+  }
+}
