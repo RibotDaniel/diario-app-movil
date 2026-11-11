@@ -14,20 +14,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true" class="calendario-content">
   <ion-grid class="main-container">
 
-    <!-- Título de la vista -->
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" class="ion-text-center">
         <h1 class="title">Calendario</h1>
-        <p class="subtitle">Selecciona una fecha para ver tus registros</p>
+        <p class="subtitle">Tus registros y entradas guardadas</p>
       </ion-col>
     </ion-row>
 
-    <!-- Componente de Calendario de Ionic (Sin relleno, adaptable a Base de Datos) -->
     <ion-row class="ion-justify-content-center">
-      <ion-col size="12" size-md="8" class="ion-text-center">
+      <ion-col size="12" size-md="8">
         <ion-card class="calendar-card">
           <ion-card-content class="ion-no-padding">
             <ion-datetime 
@@ -41,13 +39,25 @@
       </ion-col>
     </ion-row>
 
-    <!-- Contenedor dinámico para mostrar las entradas de la BD según el día seleccionado -->
     <ion-row class="ion-justify-content-center">
       <ion-col size="12">
-        <div class="registros-dinamicos">
-          <!-- Aquí se iterarán los registros que traigas de tu base de datos -->
-          <!-- Ejemplo: <div *ngFor="let registro of registrosDelDia"> ... </div> -->
+        <div class="formulario">
         </div>
+      </ion-col>
+    </ion-row>
+
+    <div class="perfil-selector">
+      <div class="avatar-container">
+        <ion-icon name="calendar-outline" class="perfil-icon"></ion-icon>
+      </div>
+      <span>VISTA DE HISTORIAL</span>
+    </div>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <ion-button expand="block" class="guardar" routerLink="/tabs/inicio">
+          Volver al Inicio
+        </ion-button>
       </ion-col>
     </ion-row>
 
