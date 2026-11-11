@@ -14,10 +14,10 @@ const routes: Routes = [
         loadChildren: () => import('../inicio/inicio.module').then(m => m.InicioPageModule)
       },
       // NOTA: Cuando crees las otras páginas, las agregas aquí abajo:
-      // {
-      //   path: 'calendario',
-      //   loadChildren: () => import('../calendario/calendario.module').then(m => m.CalendarioPageModule)
-      // },
+      {
+        path: 'calendario', // <--- Asegúrate de tener esta ruta aquí
+        loadChildren: () => import('../calendario/calendario.module').then(m => m.CalendarioPageModule)
+      },
       {
         // Por defecto, cuando entres a los tabs, te mandará a la pestaña inicio
         path: '',

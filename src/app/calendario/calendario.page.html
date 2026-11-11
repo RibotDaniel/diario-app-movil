@@ -1,0 +1,55 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="end">
+      <ion-button aria-label="Notificaciones" routerLink="/tabs/notificaciones">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+      <ion-button aria-label="Perfil" routerLink="/tabs/perfil">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button aria-label="Configuración" routerLink="/tabs/configuracion">
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="main-container">
+
+    <!-- Título de la vista -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" class="ion-text-center">
+        <h1 class="title">Calendario</h1>
+        <p class="subtitle">Selecciona una fecha para ver tus registros</p>
+      </ion-col>
+    </ion-row>
+
+    <!-- Componente de Calendario de Ionic (Sin relleno, adaptable a Base de Datos) -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="8" class="ion-text-center">
+        <ion-card class="calendar-card">
+          <ion-card-content class="ion-no-padding">
+            <ion-datetime 
+              presentation="date" 
+              [(ngModel)]="fechaSeleccionada"
+              (ionChange)="onFechaCambiada($event)"
+              aria-label="Calendario de entradas">
+            </ion-datetime>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Contenedor dinámico para mostrar las entradas de la BD según el día seleccionado -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <div class="registros-dinamicos">
+          <!-- Aquí se iterarán los registros que traigas de tu base de datos -->
+          <!-- Ejemplo: <div *ngFor="let registro of registrosDelDia"> ... </div> -->
+        </div>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
