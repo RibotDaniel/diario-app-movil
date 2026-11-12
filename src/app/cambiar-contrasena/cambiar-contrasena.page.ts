@@ -1,10 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular/lazy';
 
 @Component({
   selector: 'app-cambiar-contrasena',
   templateUrl: './cambiar-contrasena.page.html',
   styleUrls: ['./cambiar-contrasena.page.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule] // Asegúrate de importarlos si marca error de elementos
 })
 export class CambiarContrasenaPage {
 
