@@ -17,9 +17,9 @@ export class LoginPage implements OnInit {
   constructor(
     private router: Router,
     private database: DatabaseService
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async entrar() {
     try {
@@ -34,7 +34,9 @@ export class LoginPage implements OnInit {
       if (usuario) {
         // ¡Clave para que tu pantalla de Grabar funcione!
         await Preferences.set({ key: 'usuarioId', value: String(usuario.id) });
-        
+        const sesion = await Preferences.get({ key: 'usuarioId' });
+        console.log('Sesión guardada en Preferences:', sesion.value);
+
         console.log('Inicio de sesión exitoso, usuario ID:', usuario.id);
         this.router.navigateByUrl('/tabs/inicio', { replaceUrl: true });
       } else {

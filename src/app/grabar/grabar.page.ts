@@ -4,6 +4,7 @@ import { Capacitor } from '@capacitor/core';
 import { SpeechRecognition } from '@capacitor-community/speech-recognition'; // <--- PLUGIN DE VOZ
 import { interval, Subscription } from 'rxjs';
 import { EntradasService } from '../services/entradas.service';
+import { Router } from '@angular/router';
 
 type Estado = 'inactivo' | 'grabando' | 'pausado';
 
@@ -37,12 +38,12 @@ export class GrabarPage implements OnDestroy {
 
   // Detecta si corre en dispositivo físico (Android/iOS) o navegador web
   private nativo = Capacitor.isNativePlatform();
-
   constructor(
     private cdr: ChangeDetectorRef,
     private toast: ToastController,
-    private entradas: EntradasService
-  ) {}
+    private entradas: EntradasService,
+    private router: Router
+  ) { }
 
   get titulo(): string {
     if (this.estado === 'grabando') return 'Grabando...';
@@ -121,33 +122,44 @@ export class GrabarPage implements OnDestroy {
   async cancelar() {
     this.limpiarTodo();
     await this.finalizar();
-    this.limpiarTodo(); 
+    this.limpiarTodo();
   }
+
 
   async confirmar() {
     const estabaActivo = this.estado !== 'inactivo';
-    this.consolidar();
+
     const texto = this.textoMostrado.trim();
     const duracion = this.segundos;
+    console.log('Texto visible al confirmar:', this.textoMostrado);
+    console.log('Texto enviado a Revisar:', texto);
+    console.log('Duración enviada:', duracion);
 
-    await this.finalizar(); 
+    // Detener el reconocimiento y el cronómetro
+    await this.finalizar();
 
+    // Comprobar que exista una transcripción
     if (!texto) {
       this.limpiarTodo();
+
       if (estabaActivo) {
-        this.mostrar('No escuchamos nada para guardar.', 'warning');
+        this.mostrar('No escuchamos nada para revisar.', 'warning');
       }
       return;
     }
 
-    try {
-      await this.entradas.guardar({ texto, duracion });
-      this.limpiarTodo(); 
-      this.mostrar('¡Entrada guardada!', 'success');
-    } catch {
-      this.mostrar('No pudimos guardar tu entrada, ¿lo intentamos de nuevo?');
-    }
+    // Enviar los datos a la nueva pantalla
+    const navegacion = await this.router.navigate(
+      ['/tabs/revisar-entrada'],
+      {
+        state: {
+          transcripcion: texto,
+          duracion: duracion
+        }
+      }
+    );
   }
+
 
   alEditar(ev: any) {
     this.base = ev.detail.value || '';

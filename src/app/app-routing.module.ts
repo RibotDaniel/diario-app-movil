@@ -1,30 +1,4 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'tabs',
-    pathMatch: 'full'
-  },
-  {
-    path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
-  },
-  {
-    path: 'registro',
-    loadChildren: () => import('./registro/registro.module').then(m => m.RegistroPageModule)
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
-  },
-  {
-    path: 'calendario',
-    loadChildren: () => import('./calendario/calendario.module').then( m => m.CalendarioPageModule)
-  }
-
-];
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -47,20 +21,26 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () =>
-      import('./login/login.module')
-        .then(m => m.LoginPageModule)
+      import('./login/login.module').then(m => m.LoginPageModule)
+  },
+  {
+    path: 'calendario',
+    loadChildren: () =>
+      import('./calendario/calendario.module').then(m => m.CalendarioPageModule)
   },
   {
     path: 'configuracion',
     loadChildren: () =>
-      import('./configuracion/configuracion.module')
-        .then(m => m.ConfiguracionPageModule)
+      import('./configuracion/configuracion.module').then(m => m.ConfiguracionPageModule)
   },
   {
     path: 'notificaciones',
-    loadChildren: () => import('./notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+    loadChildren: () =>
+      import('./notificaciones/notificaciones.module').then(m => m.NotificacionesPageModule)
+  },  {
+    path: 'revisar-entrada',
+    loadChildren: () => import('./revisar-entrada/revisar-entrada.module').then( m => m.RevisarEntradaPageModule)
   }
-
 
 ];
 
