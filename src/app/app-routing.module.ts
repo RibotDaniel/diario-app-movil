@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -37,11 +36,23 @@ const routes: Routes = [
     path: 'notificaciones',
     loadChildren: () =>
       import('./notificaciones/notificaciones.module').then(m => m.NotificacionesPageModule)
-  },  {
+  },
+  {
+    path: 'editar-perfil',
+    loadComponent: () =>
+      import('./editar-perfil/editar-perfil.page').then(m => m.EditarPerfilPage)
+  },
+  {
+    path: 'cambiar-contrasena',
+    loadComponent: () =>
+      import('./cambiar-contrasena/cambiar-contrasena.page').then(m => m.CambiarContrasenaPage)
+  },
+  {
     path: 'revisar-entrada',
-    loadChildren: () => import('./revisar-entrada/revisar-entrada.module').then( m => m.RevisarEntradaPageModule)
+    loadChildren: () =>
+      import('./revisar-entrada/revisar-entrada.module')
+        .then(m => m.RevisarEntradaPageModule)
   }
-
 ];
 
 @NgModule({
