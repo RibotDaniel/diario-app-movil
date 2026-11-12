@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
-import { SpeechRecognition } from '@capacitor-community/speech-recognition';
+import { SpeechRecognition } from '@capacitor-community/speech-recognition'; // <--- PLUGIN DE VOZ
 import { interval, Subscription } from 'rxjs';
 import { EntradasService } from '../services/entradas.service';
 
@@ -17,6 +17,9 @@ const esperar = (ms: number) => new Promise<void>(r => setTimeout(r, ms));
 })
 export class GrabarPage implements OnDestroy {
 
+  // ==========================================
+  // 1. PROPIEDADES Y VARIABLES DE ESTADO
+  // ==========================================
   estado: Estado = 'inactivo';
   segundos = 0;
   textoMostrado = '';
@@ -26,13 +29,13 @@ export class GrabarPage implements OnDestroy {
   private parcial = '';
   private cronometro?: Subscription;
   private ondasSim?: Subscription;
-  private audioCtx?: AudioContext;
-  private analyser?: AnalyserNode;
-  private stream?: MediaStream;
+  private audioCtx?: AudioContext;         // <--- API WEB (Navegador - Audio)
+  private analyser?: AnalyserNode;       // <--- API WEB (Navegador - Analizador)
+  private stream?: MediaStream;          // <--- API WEB (Navegador - Stream de Micrófono)
   private rafId = 0;
   private reiniciando = false;
 
-  // true en Android/iOS, false en el navegador
+  // Detecta si corre en dispositivo físico (Android/iOS) o navegador web
   private nativo = Capacitor.isNativePlatform();
 
   constructor(
@@ -47,15 +50,18 @@ export class GrabarPage implements OnDestroy {
     return 'Toca el micrófono';
   }
 
-  // El proyecto no usa zone.js: hay que avisar a Angular que redibuje
+  // Refresca la vista manualmente (necesario al no usar Zone.js)
   private refrescar() {
     this.cdr.markForCheck();
   }
 
-  // ---------- Controles ----------
+  // ==========================================
+  // 2. CONTROLES PRINCIPALES (UI Actions)
+  // ==========================================
 
   async iniciar() {
     try {
+      // Si estamos en el celular, validamos permisos y conectamos el plugin nativo
       if (this.nativo) {
         const { available } = await SpeechRecognition.available();
         if (!available) {
@@ -83,7 +89,7 @@ export class GrabarPage implements OnDestroy {
 
       this.iniciarCronometro();
       this.iniciarOndas();
-      await this.escuchar();
+      await this.escuchar(); // <--- LLAMADA AL PLUGIN DE VOZ
     } catch {
       this.limpiarTemporizadores();
       this.estado = 'inactivo';
@@ -115,7 +121,7 @@ export class GrabarPage implements OnDestroy {
   async cancelar() {
     this.limpiarTodo();
     await this.finalizar();
-    this.limpiarTodo(); // por si llegó texto tardío
+    this.limpiarTodo(); 
   }
 
   async confirmar() {
@@ -124,7 +130,7 @@ export class GrabarPage implements OnDestroy {
     const texto = this.textoMostrado.trim();
     const duracion = this.segundos;
 
-    await this.finalizar(); // detiene cronómetro, ondas y plugin
+    await this.finalizar(); 
 
     if (!texto) {
       this.limpiarTodo();
@@ -136,31 +142,33 @@ export class GrabarPage implements OnDestroy {
 
     try {
       await this.entradas.guardar({ texto, duracion });
-      this.limpiarTodo(); // vacía el recuadro y reinicia el cronómetro
+      this.limpiarTodo(); 
       this.mostrar('¡Entrada guardada!', 'success');
     } catch {
       this.mostrar('No pudimos guardar tu entrada, ¿lo intentamos de nuevo?');
     }
   }
 
-  // Si el usuario edita la transcripción a mano
   alEditar(ev: any) {
     this.base = ev.detail.value || '';
     this.parcial = '';
   }
 
-  // ---------- Reconocimiento de voz (solo en el teléfono) ----------
+  // ==========================================
+  // 3. NÚCLEO DEL PLUGIN DE RECONOCIMIENTO DE VOZ
+  // ==========================================
 
   private async registrarListeners() {
     await SpeechRecognition.removeAllListeners();
 
+    // Captura transcripciones en tiempo real que devuelve el sistema
     SpeechRecognition.addListener('partialResults', (data: { matches: string[] }) => {
       if (this.estado !== 'grabando') return;
       this.parcial = data.matches?.[0] ?? '';
       this.actualizarTexto();
     });
 
-    // Android corta la escucha tras un silencio: si seguimos grabando, se reinicia
+    // Android corta el dictado por silencio: aquí detectamos y auto-reiniciamos
     SpeechRecognition.addListener('listeningState', (data: { status: 'started' | 'stopped' }) => {
       if (data.status === 'stopped' && this.estado === 'grabando') {
         this.consolidar();
@@ -186,6 +194,7 @@ export class GrabarPage implements OnDestroy {
     }
   }
 
+  // Método nativo que enciende el reconocimiento de voz
   private async escuchar() {
     if (!this.nativo) return;
     await SpeechRecognition.start({
@@ -196,13 +205,17 @@ export class GrabarPage implements OnDestroy {
     });
   }
 
+  // Método nativo que detiene el reconocimiento de voz
   private async detenerEscucha() {
     if (!this.nativo) return;
     try {
-      // si stop() se cuelga, no esperamos más de 1 segundo
       await Promise.race([SpeechRecognition.stop(), esperar(1000)]);
     } catch { /* ya estaba detenido */ }
   }
+
+  // ==========================================
+  // 4. MANEJO DE TEXTO Y ESTADOS INTERNOS
+  // ==========================================
 
   private consolidar() {
     if (this.parcial) {
@@ -225,7 +238,6 @@ export class GrabarPage implements OnDestroy {
     this.refrescar();
   }
 
-  // Primero se limpia todo lo local, y al final se detiene el plugin
   private async finalizar() {
     this.estado = 'inactivo';
     this.limpiarTemporizadores();
@@ -239,7 +251,9 @@ export class GrabarPage implements OnDestroy {
     }
   }
 
-  // ---------- Cronómetro y ondas ----------
+  // ==========================================
+  // 5. CRONÓMETRO Y ANIMACIÓN DE ONDAS (API Web / Simulación)
+  // ==========================================
 
   private limpiarTemporizadores() {
     this.cronometro?.unsubscribe();
@@ -257,18 +271,18 @@ export class GrabarPage implements OnDestroy {
 
   private iniciarOndas() {
     if (this.nativo) {
-      // En el teléfono el micrófono lo usa el dictado: las ondas son simuladas
+      // En teléfono móvil simulamos las ondas (el plugin ocupa el micrófono y no deja duplicar flujo)
       this.ondasSim?.unsubscribe();
       this.ondasSim = interval(120).subscribe(() => {
         this.barras = this.barras.map(() => 6 + Math.random() * 40);
         this.refrescar();
       });
     } else {
-      this.ondasReales();
+      this.ondasReales(); // En navegador usamos Web Audio API
     }
   }
 
-  // Solo en el navegador: ondas según el volumen real del micrófono
+  // API Web usada exclusivamente en navegadores para medir volumen real del mic
   private async ondasReales() {
     try {
       this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -288,7 +302,7 @@ export class GrabarPage implements OnDestroy {
       };
       dibujar();
     } catch {
-      // Sin acceso al nivel de audio, las ondas quedan quietas
+      // Sin acceso al nivel de audio
     }
   }
 
@@ -304,7 +318,9 @@ export class GrabarPage implements OnDestroy {
     this.refrescar();
   }
 
-  // ---------- Mensajes ----------
+  // ==========================================
+  // 6. MENSAJES Y CICLO DE VIDA
+  // ==========================================
 
   private async mostrar(message: string, color = 'danger') {
     const t = await this.toast.create({ message, duration: 2500, position: 'top', color });

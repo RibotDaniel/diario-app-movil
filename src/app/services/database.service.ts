@@ -102,6 +102,20 @@ export class DatabaseService {
       );
     `);
 
+        // NUEVO: tabla de transcripciones (página Grabar).
+        // Cada transcripción pertenece a un usuario: usuario_id es el id de la cuenta.
+        await conexion.execute(`
+      CREATE TABLE IF NOT EXISTS transcripciones (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        usuario_id INTEGER NOT NULL,
+        texto TEXT NOT NULL,
+        duracion INTEGER NOT NULL DEFAULT 0,
+        creado_en TEXT NOT NULL,
+        actualizado_en TEXT NOT NULL,
+        FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+      );
+    `);
+
         // Guardar la conexión inicializada
         this.db = conexion;
 
@@ -248,5 +262,62 @@ export class DatabaseService {
 
             throw error;
         }
+    }
+
+    // ==========================================
+    // NUEVO: Método para verificar inicio de sesión
+    // ==========================================
+    async verificarCredenciales(correo: string, contrasena: string): Promise<{ id: number; nombre: string; correo: string } | null> {
+        await this.inicializar();
+
+        if (!this.db) {
+            throw new Error('No se pudo abrir la base de datos');
+        }
+
+        const correoNormalizado = correo.trim().toLowerCase();
+
+        const resultado = await this.db.query(
+            'SELECT id, nombre, correo, contrasena_hash FROM usuarios WHERE correo = ?',
+            [correoNormalizado]
+        );
+
+        if (!resultado.values || resultado.values.length === 0) {
+            return null; // Usuario no encontrado
+        }
+
+        const usuario = resultado.values[0];
+        const [saltHex, storedHashHex] = usuario.contrasena_hash.split(':');
+
+        const encoder = new TextEncoder();
+        const salt = new Uint8Array(saltHex.match(/.{1,2}/g)!.map((byte: string) => parseInt(byte, 16)));
+
+        const clave = await crypto.subtle.importKey(
+            'raw',
+            encoder.encode(contrasena),
+            'PBKDF2',
+            false,
+            ['deriveBits']
+        );
+
+        const resultadoDerivado = await crypto.subtle.deriveBits(
+            {
+                name: 'PBKDF2',
+                salt: salt,
+                iterations: 600000,
+                hash: 'SHA-256'
+            },
+            clave,
+            256
+        );
+
+        const hashHex = Array.from(new Uint8Array(resultadoDerivado))
+            .map((valor: number) => valor.toString(16).padStart(2, '0'))
+            .join('');
+
+        if (hashHex === storedHashHex) {
+            return { id: usuario.id, nombre: usuario.nombre, correo: usuario.correo };
+        }
+
+        return null; // Contraseña incorrecta
     }
 }

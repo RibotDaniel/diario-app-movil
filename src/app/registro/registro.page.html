@@ -31,14 +31,16 @@
         fill="outline"
         label="Nombre"
         labelPlacement="floating"
-        type="text">
+        type="text"
+        [(ngModel)]="nombre">
       </ion-input>
 
       <ion-input
         fill="outline"
         label="correo"
         labelPlacement="floating"
-        type="email">
+        type="email"
+        [(ngModel)]="correo">
       </ion-input>
 
       <!-- Contraseña -->
@@ -46,7 +48,8 @@
         fill="outline"
         label="Contraseña"
         labelPlacement="floating"
-        type="password">
+        type="password"
+        [(ngModel)]="contrasena">
 
         <ion-input-password-toggle
           slot="end">
@@ -74,7 +77,7 @@
     <ion-button
       expand="block"
       class="guardar"
-      routerLink="/tabs/inicio">
+      (click)="registrar()">
       Guardar
     </ion-button>
     <div class="login-link">
