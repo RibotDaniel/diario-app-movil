@@ -1,0 +1,65 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="end">
+      <ion-button aria-label="Notificaciones" routerLink="/tabs/notificaciones">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+      <ion-button aria-label="Perfil" routerLink="/tabs/perfil">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button aria-label="Configuración" routerLink="/tabs/configuracion">
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="calendario-content">
+  <ion-grid class="main-container">
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" class="ion-text-center">
+        <h1 class="title">Calendario</h1>
+        <p class="subtitle">Tus registros y entradas guardadas</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="8">
+        <ion-card class="calendar-card">
+          <ion-card-content class="ion-no-padding">
+            <ion-datetime 
+              presentation="date" 
+              [(ngModel)]="fechaSeleccionada"
+              (ionChange)="onFechaCambiada($event)"
+              aria-label="Calendario de entradas">
+            </ion-datetime>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <div class="formulario">
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <div class="perfil-selector">
+      <div class="avatar-container">
+        <ion-icon name="calendar-outline" class="perfil-icon"></ion-icon>
+      </div>
+      <span>VISTA DE HISTORIAL</span>
+    </div>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <ion-button expand="block" class="guardar" routerLink="/tabs/inicio">
+          Volver al Inicio
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
