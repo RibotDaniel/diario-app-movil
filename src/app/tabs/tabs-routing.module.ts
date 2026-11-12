@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -23,6 +22,15 @@ const routes: Routes = [
           import('../grabar/grabar.module')
             .then(m => m.GrabarPageModule)
       },
+
+      {
+        // Pantalla para revisar una grabación antes de guardarla
+        path: 'revisar-entrada',
+        loadChildren: () =>
+          import('../revisar-entrada/revisar-entrada.module')
+            .then(m => m.RevisarEntradaPageModule)
+      },
+
       {
         // Página de configuración
         path: 'configuracion',

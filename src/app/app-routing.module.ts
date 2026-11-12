@@ -9,35 +9,49 @@ const routes: Routes = [
   },
   {
     path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () =>
+      import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: 'registro',
-    loadChildren: () => import('./registro/registro.module').then(m => m.RegistroPageModule)
+    loadChildren: () =>
+      import('./registro/registro.module').then(m => m.RegistroPageModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
-  },
-  {
-    path: 'configuracion',
-    loadChildren: () => import('./configuracion/configuracion.module').then(m => m.ConfiguracionPageModule)
+    loadChildren: () =>
+      import('./login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'calendario',
-    loadChildren: () => import('./calendario/calendario.module').then(m => m.CalendarioPageModule)
+    loadChildren: () =>
+      import('./calendario/calendario.module').then(m => m.CalendarioPageModule)
+  },
+  {
+    path: 'configuracion',
+    loadChildren: () =>
+      import('./configuracion/configuracion.module').then(m => m.ConfiguracionPageModule)
   },
   {
     path: 'notificaciones',
-    loadChildren: () => import('./notificaciones/notificaciones.module').then(m => m.NotificacionesPageModule)
+    loadChildren: () =>
+      import('./notificaciones/notificaciones.module').then(m => m.NotificacionesPageModule)
   },
   {
     path: 'editar-perfil',
-    loadComponent: () => import('./editar-perfil/editar-perfil.page').then(m => m.EditarPerfilPage)
+    loadComponent: () =>
+      import('./editar-perfil/editar-perfil.page').then(m => m.EditarPerfilPage)
   },
   {
     path: 'cambiar-contrasena',
-    loadComponent: () => import('./cambiar-contrasena/cambiar-contrasena.page').then(m => m.CambiarContrasenaPage)
+    loadComponent: () =>
+      import('./cambiar-contrasena/cambiar-contrasena.page').then(m => m.CambiarContrasenaPage)
+  },
+  {
+    path: 'revisar-entrada',
+    loadChildren: () =>
+      import('./revisar-entrada/revisar-entrada.module')
+        .then(m => m.RevisarEntradaPageModule)
   }
 ];
 

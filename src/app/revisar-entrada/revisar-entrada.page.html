@@ -1,0 +1,98 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/grabar" text="">
+      </ion-back-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button aria-label="Notificaciones" routerLink="/notificaciones">
+        <ion-icon slot="icon-only" name="notifications">
+        </ion-icon>
+      </ion-button>
+
+      <ion-button aria-label="Perfil">
+        <ion-icon slot="icon-only" name="person-circle">
+        </ion-icon>
+      </ion-button>
+
+      <ion-button aria-label="Configuración" routerLink="/tabs/configuracion">
+        <ion-icon slot="icon-only" name="settings">
+        </ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+
+  <!-- Fecha y hora -->
+  <div class="encabezado-entrada">
+    <h1>Mi entrada de hoy</h1>
+    <p>{{ fechaActual | date:'dd/MM/yyyy - HH:mm' }}</p>
+  </div>
+
+  <!-- Información de grabación -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon name="mic-outline"></ion-icon>
+        Mi grabación
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Duración: {{ duracion }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Transcripción -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Transcripción</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-textarea [(ngModel)]="transcripcion" [autoGrow]="true" rows="5"
+        placeholder="Aquí aparecerá tu transcripción">
+      </ion-textarea>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Etiquetas -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Etiquetas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input [(ngModel)]="etiquetas" placeholder="Escribe tus etiquetas">
+      </ion-input>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Contenido sugerido -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Contenido sugerido</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Las recomendaciones aparecerán aquí.</p>
+    </ion-card-content>
+  </ion-card>
+
+
+  <!-- Acciones -->
+
+  <!-- Botones de acciones -->
+  <div class="acciones">
+
+    <ion-button class="boton-entrada" (click)="guardarEntrada()" [disabled]="guardando">
+      {{ guardando ? 'Guardando...' : 'Guardar' }}
+    </ion-button>
+
+    <ion-button class="boton-entrada" (click)="descartarEntrada()" [disabled]="guardando">
+      Descartar
+    </ion-button>
+
+  </div>
