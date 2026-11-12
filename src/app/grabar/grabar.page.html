@@ -1,0 +1,99 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="end">
+      <ion-button aria-label="Notificaciones">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+      <ion-button aria-label="Perfil">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button aria-label="Configuración">
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="main-container">
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" class="ion-text-center">
+        <h1 class="title">{{ titulo }}</h1>
+      </ion-col>
+    </ion-row>
+
+    <!-- Micrófono: inicia la grabación -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" class="mic-col">
+        <ion-fab-button
+          class="mic-btn"
+          [color]="estado === 'grabando' ? 'danger' : 'primary'"
+          [class.pulso]="estado === 'grabando'"
+          [disabled]="estado !== 'inactivo'"
+          (click)="iniciar()"
+          aria-label="Iniciar grabación">
+          <ion-icon name="mic"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+    </ion-row>
+
+    <!-- Cronómetro con DatePipe de Angular -->
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <p class="timer">{{ segundos * 1000 | date:'HH:mm:ss':'UTC' }}</p>
+      </ion-col>
+    </ion-row>
+
+    <!-- Ondas -->
+    <ion-row>
+      <ion-col size="12">
+        <div class="wave" aria-hidden="true">
+          <span class="bar" *ngFor="let b of barras" [style.height.px]="b"></span>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- Controles -->
+    <ion-row class="ion-align-items-center">
+      <ion-col size="4" class="ion-text-center">
+        <ion-button class="control-btn" color="primary" (click)="cancelar()"
+          [disabled]="estado === 'inactivo'" aria-label="Descartar">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="4" class="ion-text-center">
+        <ion-button class="control-btn" color="primary" (click)="confirmar()"
+          [disabled]="estado === 'inactivo'" aria-label="Guardar">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="4" class="ion-text-center">
+        <ion-button class="control-btn" color="primary" (click)="pausarOReanudar()"
+          [disabled]="estado === 'inactivo'"
+          [attr.aria-label]="estado === 'pausado' ? 'Reanudar' : 'Pausar'">
+          <ion-icon slot="icon-only" [name]="estado === 'pausado' ? 'play' : 'pause'"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <!-- Transcripción -->
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="transcription-card">
+          <ion-card-content>
+            <ion-textarea
+              [(ngModel)]="textoMostrado"
+              (ionInput)="alEditar($event)"
+              placeholder="Transcripción"
+              [autoGrow]="true"
+              rows="5"
+              aria-label="Transcripción">
+            </ion-textarea>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

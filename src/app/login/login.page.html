@@ -14,14 +14,16 @@
         labelPlacement="floating"
         fill="outline"
         placeholder="ejemplo@correo.com"
-        type="email">
+        type="email"
+        [(ngModel)]="correo">
       </ion-input>
 
       <ion-input
         label="Contraseña"
         labelPlacement="floating"
         fill="outline"
-        type="password">
+        type="password"
+        [(ngModel)]="contrasena">
         <!-- Ícono para mostrar/ocultar contraseña según la guía -->
         <ion-input-password-toggle slot="end"></ion-input-password-toggle>
       </ion-input>
@@ -29,13 +31,13 @@
 
     <!-- Botones de Acción -->
     <div class="actions-section">
-      <!-- Botón principal Verde Salvia -->
-      <ion-button expand="block" class="btn-primary" routerLink="/tabs/inicio">
+      <!-- Botón principal Verde Salvia (conectado a la función de autenticación) -->
+      <ion-button expand="block" class="btn-primary" (click)="entrar()">
         Entrar
       </ion-button>
 
       <!-- Botón secundario para Huella Digital -->
-      <ion-button expand="block" fill="clear" class="btn-fingerprint" routerLink="/tabs/inicio">
+      <ion-button expand="block" fill="clear" class="btn-fingerprint" (click)="entrar()">
         <ion-icon slot="start" name="finger-print-outline"></ion-icon>
         Usar huella digital
       </ion-button>

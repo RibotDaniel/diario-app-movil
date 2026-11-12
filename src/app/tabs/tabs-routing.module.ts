@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -9,9 +10,25 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        // Esta es la pestaña de Inicio que ya tienes creada
+        // Página principal
         path: 'inicio',
-        loadChildren: () => import('../inicio/inicio.module').then(m => m.InicioPageModule)
+        loadChildren: () =>
+          import('../inicio/inicio.module')
+            .then(m => m.InicioPageModule)
+      },
+      {
+        // Página de grabación
+        path: 'grabar',
+        loadChildren: () =>
+          import('../grabar/grabar.module')
+            .then(m => m.GrabarPageModule)
+      },
+      {
+        // Página de configuración
+        path: 'configuracion',
+        loadChildren: () =>
+          import('../configuracion/configuracion.module')
+            .then(m => m.ConfiguracionPageModule)
       },
       // NOTA: Cuando crees las otras páginas, las agregas aquí abajo:
       {
@@ -19,7 +36,7 @@ const routes: Routes = [
         loadChildren: () => import('../calendario/calendario.module').then(m => m.CalendarioPageModule)
       },
       {
-        // Por defecto, cuando entres a los tabs, te mandará a la pestaña inicio
+        // Redirección predeterminada
         path: '',
         redirectTo: 'inicio',
         pathMatch: 'full'
@@ -32,4 +49,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }
