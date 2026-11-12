@@ -1,0 +1,19 @@
+ion-toolbar {
+  --background: #36454F !important;
+  --color: #F5EBE0 !important;
+}
+
+ion-content {
+  --background: #F5EBE0 !important;
+}
+
+ion-card {
+  --background: #F8F4FC !important;
+  --color: #36454F !important;
+  border-radius: 20px;
+}
+
+ion-button:not([color]) {
+  --background: #90C9B2;
+  --color: #36454F;
+}
