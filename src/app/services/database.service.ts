@@ -102,8 +102,7 @@ export class DatabaseService {
       );
     `);
 
-        // NUEVO: tabla de transcripciones (página Grabar).
-        // Cada transcripción pertenece a un usuario: usuario_id es el id de la cuenta.
+        // Tabla de transcripciones (página Grabar).
         await conexion.execute(`
       CREATE TABLE IF NOT EXISTS transcripciones (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -264,9 +263,7 @@ export class DatabaseService {
         }
     }
 
-    // ==========================================
-    // NUEVO: Método para verificar inicio de sesión
-    // ==========================================
+    // Método para verificar inicio de sesión
     async verificarCredenciales(correo: string, contrasena: string): Promise<{ id: number; nombre: string; correo: string } | null> {
         await this.inicializar();
 
@@ -319,5 +316,22 @@ export class DatabaseService {
         }
 
         return null; // Contraseña incorrecta
+    }
+
+    // NUEVO: Método para consultar transcripciones por fecha (para el calendario)
+    async obtenerTranscripcionesPorFecha(usuarioId: number, fecha: string): Promise<any[]> {
+        await this.inicializar();
+
+        if (!this.db) {
+            throw new Error('No se pudo abrir la base de datos');
+        }
+
+        const resultado = await this.db.query(
+            `SELECT * FROM transcripciones 
+             WHERE usuario_id = ? AND date(creado_en) = date(?)`,
+            [usuarioId, fecha]
+        );
+
+        return resultado.values || [];
     }
 }
