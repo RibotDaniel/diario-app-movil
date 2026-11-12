@@ -28,7 +28,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./configuracion/configuracion.module')
         .then(m => m.ConfiguracionPageModule)
+  },  {
+    path: 'editar-perfil',
+    loadChildren: () => import('./editar-perfil/editar-perfil.module').then( m => m.EditarPerfilPageModule)
   }
+
 ];
 
 @NgModule({
