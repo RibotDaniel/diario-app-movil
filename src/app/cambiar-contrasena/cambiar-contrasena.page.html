@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cambiar contraseña</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" style="--background: #F5EBE0;">
+  <div class="change-password-container" style="max-width: 400px; margin: auto; padding-top: 20px;">
+    
+    <h1 style="font-family: 'Nunito', sans-serif; font-weight: bold; text-align: center; margin-bottom: 25px;">Cambiar contraseña</h1>
+
+    <!-- Formulario de 3 campos -->
+    <div class="form-section" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px;">
+      
+      <ion-input
+        label="Contraseña actual"
+        labelPlacement="floating"
+        fill="outline"
+        type="password"
+        [(ngModel)]="passwordActual">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+
+      <ion-input
+        label="Nueva contraseña"
+        labelPlacement="floating"
+        fill="outline"
+        type="password"
+        [(ngModel)]="passwordNueva">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+
+      <ion-input
+        label="Confirmar contraseña"
+        labelPlacement="floating"
+        fill="outline"
+        type="password"
+        [(ngModel)]="passwordConfirmar">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+
+    </div>
+
+    <!-- Botón de confirmar -->
+    <div class="actions-section">
+      <ion-button expand="block" style="--background: #8ea89d;" (click)="guardarContrasena()">
+        Confirmar
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

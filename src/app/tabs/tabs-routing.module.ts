@@ -30,6 +30,11 @@ const routes: Routes = [
           import('../configuracion/configuracion.module')
             .then(m => m.ConfiguracionPageModule)
       },
+      // NOTA: Cuando crees las otras páginas, las agregas aquí abajo:
+      {
+        path: 'calendario', // <--- Asegúrate de tener esta ruta aquí
+        loadChildren: () => import('../calendario/calendario.module').then(m => m.CalendarioPageModule)
+      },
       {
         // Redirección predeterminada
         path: '',
